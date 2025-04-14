@@ -37,7 +37,7 @@ const port = 3001;
 // });
 
 app.get("/video", (req, res) => {
-  const videoPath = path.join(__dirname, "../OddbitConnect.mp4");
+  const videoPath = path.join(__dirname, "../public/OddbitConnect.mp4");
   const stat = fs.statSync(videoPath);
   const fileSize = stat.size;
   const range = req.headers.range;
