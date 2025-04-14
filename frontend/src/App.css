@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.App h1 {
+  background-color: #79e547;
+  color: white;
+  margin: 0;
+  height: 70px;
+  line-height: 70px;
+}
+
+.App footer {
+  background-color: #79e547;
+  color: white;
+  margin: 0;
+  height: 70px;
+  line-height: 70px;
+}

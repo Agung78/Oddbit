@@ -32,7 +32,7 @@ import VideoPlayer from "./components/VideoPlayer"; // Import the VideoPlayer co
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>My Video Player App</h1>
+      <h1>Oddbit Video Player</h1>
       <VideoPlayer /> {/* Render the VideoPlayer component */}
     </div>
   );

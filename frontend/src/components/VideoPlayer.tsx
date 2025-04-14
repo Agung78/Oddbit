@@ -93,13 +93,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
+import "../App.css";
+
 const VideoPlayer: React.FC = () => {
   const [videoUrl, setVideoUrl] = useState<string | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasError, setHasError] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>(0); // Track the current time
+  const [currentTime, setCurrentTime] = useState<number>(0); // Track the current time video
   const [isMuted, setIsMuted] = useState<boolean>(false); // Track the mute state
-  const [isPlay, setIsPlay] = useState<boolean>(false); // Track the mute state
+  const [isPlay, setIsPlay] = useState<boolean>(false); // Track the play state
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -110,13 +112,10 @@ const VideoPlayer: React.FC = () => {
   ) => {
     const context = canvas.getContext("2d");
     if (context) {
-      // Draw the video frame onto the canvas
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Draw watermark text
       context.font = "30px Arial";
-      context.fillStyle = "yellow"; // Make it more visible for testing
-      context.fillText("Watermark", 20, 50); // Adjust position as necessary
+      context.fillStyle = "yellow";
+      context.fillText("Watermark", 20, 50);
     }
   };
 
@@ -152,7 +151,7 @@ const VideoPlayer: React.FC = () => {
 
       // Set the canvas size to match the video size
       const containerWidth = container.offsetWidth; // Get container width
-      const scaleFactor = 1; // Keep the scale factor 1:1 with the container
+      // const scaleFactor = 1;
       canvas.width = containerWidth; // Set canvas width to container width
       canvas.height = (video.videoHeight / video.videoWidth) * containerWidth; // Maintain aspect ratio
 
@@ -197,25 +196,23 @@ const VideoPlayer: React.FC = () => {
       {hasError && <p>Error loading video</p>}
       {!isLoading && !hasError && (
         <div>
-          {/* Resize the video to a smaller size */}
           <video
             ref={videoRef}
             src={videoUrl}
-            style={{ width: "100%" }} // Makes the video responsive
+            style={{ width: "100%" }}
             onCanPlay={onCanPlay}
             onTimeUpdate={handleTimeUpdate} // Update time while video is playing
           />
-          {/* Canvas overlay for watermark */}
           <canvas
             ref={canvasRef}
             style={{
-              position: "absolute", // Overlay the canvas over the video
+              position: "absolute",
               top: 0,
               left: 0,
-              pointerEvents: "none", // Don't block interactions with video controls
-              zIndex: 1, // Make sure canvas is on top
-              width: "100%", // Make canvas responsive
-              height: "auto", // Maintain aspect ratio
+              pointerEvents: "none",
+              zIndex: 1,
+              width: "100%",
+              height: "auto",
             }}
           />
           <div>
@@ -231,11 +228,14 @@ const VideoPlayer: React.FC = () => {
               onChange={handleSeek}
             />
             <button onClick={handleMuteToggle}>
-              {isMuted ? "Unmute" : "Mute"} {/* Toggle text */}
+              {isMuted ? "Unmute" : "Mute"}
             </button>
           </div>
         </div>
       )}
+      <footer>
+        <p>© 2025 My Website</p>
+      </footer>
     </div>
   );
 };
