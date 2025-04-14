@@ -102,6 +102,7 @@ const VideoPlayer: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<number>(0); // Track the current time video
   const [isMuted, setIsMuted] = useState<boolean>(false); // Track the mute state
   const [isPlay, setIsPlay] = useState<boolean>(false); // Track the play state
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false); 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -162,6 +163,35 @@ const VideoPlayer: React.FC = () => {
 
       updateCanvas(); // Start the drawing loop
     }
+  };
+
+  const toggleFullscreen = () => {
+    if (!isFullscreen) {
+      if (containerRef.current) {
+        if (containerRef.current.requestFullscreen) {
+          containerRef.current.requestFullscreen();
+        }
+        // else if (containerRef.current.mozRequestFullScreen) { // Firefox
+        //   containerRef.current.mozRequestFullScreen();
+        // } else if (containerRef.current.webkitRequestFullscreen) { // Chrome, Safari
+        //   containerRef.current.webkitRequestFullscreen();
+        // } else if (containerRef.current.msRequestFullscreen) { // IE/Edge
+        //   containerRef.current.msRequestFullscreen();
+        // }
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      // else if (document.mozCancelFullScreen) { // Firefox
+      //   document.mozCancelFullScreen();
+      // } else if (document.webkitExitFullscreen) { // Chrome, Safari
+      //   document.webkitExitFullscreen();
+      // } else if (document.msExitFullscreen) { // IE/Edge
+      //   document.msExitFullscreen();
+      // }
+    }
+    setIsFullscreen(!isFullscreen);
   };
 
   useEffect(() => {
@@ -230,11 +260,14 @@ const VideoPlayer: React.FC = () => {
             <button onClick={handleMuteToggle}>
               {isMuted ? "Unmute" : "Mute"}
             </button>
+            <button onClick={toggleFullscreen}>
+              {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+            </button>
           </div>
         </div>
       )}
       <footer>
-        <p>© 2025 My Website</p>
+        <p>© 2025 Oddbit Video Player</p>
       </footer>
     </div>
   );
