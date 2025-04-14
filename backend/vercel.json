@@ -5,10 +5,5 @@
       "src": "dist/index.js",
       "use": "@vercel/node"
     }
-  ],
-  "functions": {
-    "dist/index.js": {
-      "runtime": "nodejs16.x"
-    }
-  }
+  ]
 }
